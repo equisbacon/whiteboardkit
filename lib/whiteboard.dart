@@ -163,9 +163,9 @@ class WhiteboardState extends State<Whiteboard> {
               ],
             ),
           ],
-        ),
-      );
-    };
+        );
+    });
+    }
   }
 
   skipAnimationPressed() {
