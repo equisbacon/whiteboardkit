@@ -13,10 +13,10 @@ class DrawingController extends WhiteboardController {
   DateTime lastPan;
   DateTime firstPointTime;
 
-  double brushSize = 20.0;
+  double brushSize = 5.0;
   Color brushColor = Colors.blue;
   bool erase = false;
-  double eraserSize = 20.0;
+  double eraserSize = 8.0;
 
   final _chunkController = StreamController<DrawChunk>.broadcast();
   DrawChunker _chunker;
