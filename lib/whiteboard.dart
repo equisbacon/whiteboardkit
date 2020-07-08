@@ -89,7 +89,11 @@ class WhiteboardState extends State<Whiteboard> {
 
       // print("toolboxOffset:${toolboxOffset}");
 
-      return Column(
+      return WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
@@ -163,9 +167,9 @@ class WhiteboardState extends State<Whiteboard> {
               ],
             ),
           ],
-        );
+        ),
+      );
     });
-    }
   }
 
   skipAnimationPressed() {
