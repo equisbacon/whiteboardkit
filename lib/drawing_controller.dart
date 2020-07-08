@@ -13,8 +13,8 @@ class DrawingController extends WhiteboardController {
   DateTime lastPan;
   DateTime firstPointTime;
 
-  double brushSize = 5.0;
-  Color brushColor = Colors.blue;
+  double brushSize = 3.0;
+  Color brushColor = Colors.black;
   bool erase = false;
   double eraserSize = 8.0;
 
