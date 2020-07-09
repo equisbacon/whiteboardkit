@@ -24,41 +24,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DrawingController controller;
-
-  @override
-  void initState() {
-    controller = new DrawingController();
-    controller.onChange().listen((draw){
-      //do something with it
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: (){
+         showModalBottomSheet(
+           backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            isScrollControlled: true,
+            useRootNavigator: true,
+            enableDrag: false,
+            isDismissible: true,
+            context: context,
+            builder: (BuildContext context) {
+              DrawingController _dcontroller;
+              _dcontroller = new DrawingController();
+              _dcontroller.onChange().listen((draw){
+               //do something with it
+                });
+              return Stack(
+                  children: <Widget>[
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: Whiteboard(
+                     controller: _dcontroller,
+                     )),
+                     Positioned(
+                       right: 1,
+                       child: InkWell(
+                       onTap: (){Navigator.pop(context);},
+                       child: Padding(
+                         padding: const EdgeInsets.all(12),
+                         child: Icon(Icons.close, color: Colors.red, size: 30,),
+                       ),),)
+                  ],
+                );
+            });
+      }),
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: Whiteboard(
-                controller: controller,
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: Container()
     );
-  }
-
-  @override
-  void dispose() {
-    controller.close();
-    super.dispose();
   }
 }

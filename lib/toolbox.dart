@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:whiteboardkit/toolbox_options.dart';
 
 import 'drawing_controller.dart';
+import 'generated/colors.dart';
 
 enum ToolBoxSelected { none, size, color, erase }
 
@@ -14,10 +15,10 @@ class ToolBox extends StatefulWidget {
 
   ToolBox(
       {
-      // @required this.width,
       @required this.sketchController,
       @required this.color,
-      @required this.options});
+      @required this.options,
+      });
 
   @override
   _ToolBoxState createState() => _ToolBoxState();
@@ -31,9 +32,9 @@ class _ToolBoxState extends State<ToolBox> {
 
   ToolBoxSelected selected;
 
-  final brushSizes = <double>[3, 5, 8, 10];
+  final brushSizes = <double>[3.0, 5.0, 8.0, 10.0];
   final brushColors = <Color>[
-    Colors.black,
+    corLapis,
     Colors.blue,
     Colors.red,
     Colors.brown,
@@ -44,14 +45,14 @@ class _ToolBoxState extends State<ToolBox> {
   @override
   void initState() {
     brushSize = 3.0;
-    brushColor = Colors.black;
+    brushColor = corLapis;
     erase = false;
     eraserSize = 5.0;
 
     selected = ToolBoxSelected.none;
 
     widget.sketchController.brushSize = brushSize;
-
+    widget.sketchController.brushColor = corLapis;
     super.initState();
   }
 
@@ -122,7 +123,7 @@ class _ToolBoxState extends State<ToolBox> {
         ),
         Container(
           height: 80.0,
-          color: Colors.transparent,
+          color: corFundo2,
           // width: widget.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,6 +136,7 @@ class _ToolBoxState extends State<ToolBox> {
                     _buildToolButton(
                       Icon(
                         FontAwesomeIcons.pen,
+                        color: corLapis,
                         size: 20,
                       ),
                       select: ToolBoxSelected.size,
@@ -144,7 +146,7 @@ class _ToolBoxState extends State<ToolBox> {
                     _buildToolButton(
                       Icon(
                         FontAwesomeIcons.eraser,
-                        color: new Color(0xffff93f5),
+                        color: corBorracha,
                         size: 26.0,
                       ),
                       select: ToolBoxSelected.erase,
@@ -152,7 +154,7 @@ class _ToolBoxState extends State<ToolBox> {
                   ],
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: corFundo,
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
@@ -165,7 +167,7 @@ class _ToolBoxState extends State<ToolBox> {
                       Icon(
                         FontAwesomeIcons.file,
                         size: 26.0,
-                        color: widget.color,
+                        color: corBorracha,
                       ),
                       onPress: () => {widget.sketchController.wipe()},
                     ),
@@ -173,7 +175,7 @@ class _ToolBoxState extends State<ToolBox> {
                       _buildToolButton(
                           Icon(
                             FontAwesomeIcons.undo,
-                            color: widget.color,
+                            color: corBorracha,
                             size: 24,
                           ),
                           onPress: widget.sketchController.undo),
@@ -227,14 +229,14 @@ class _ToolBoxState extends State<ToolBox> {
           right: BorderSide(color: Colors.black12, width: first ? 2 : 1),
           left: BorderSide(color: Colors.black12, width: last ? 2 : 1),
         ),
-        color: size == brushSize && !erase ? Colors.grey[300] : Colors.white,
+        color: size == brushSize && !erase ? Colors.grey[300] : corFundo2,
       ),
-      height: 90,
-      width: 80,
+      height: 60,
+      width: 60,
       child: IconButton(
         icon: Icon(FontAwesomeIcons.pen),
-        color: Colors.black54,
-        iconSize: size * 1.6,
+        color: corLapis,
+        iconSize: (size+10),
         onPressed: () => changeSize(size),
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
@@ -253,7 +255,7 @@ class _ToolBoxState extends State<ToolBox> {
           right: BorderSide(color: Colors.black12, width: first ? 2 : 1),
           left: BorderSide(color: Colors.black12, width: last ? 2 : 1),
         ),
-        color: color == brushColor && !erase ? Colors.grey[300] : Colors.white,
+        color: color == brushColor && !erase ? Colors.grey[300] : corFundo2,
       ),
       child: IconButton(
         icon: Icon(Icons.color_lens),
@@ -277,14 +279,14 @@ class _ToolBoxState extends State<ToolBox> {
           right: BorderSide(color: Colors.black12, width: first ? 2 : 1),
           left: BorderSide(color: Colors.black12, width: last ? 2 : 1),
         ),
-        color: size == eraserSize && erase ? Colors.grey[300] : Colors.white,
+        color: size == eraserSize && erase ? Colors.grey[300] : corFundo2,
       ),
       height: 60,
       width: 60,
       child: IconButton(
         icon: Icon(FontAwesomeIcons.eraser),
-        color: new Color(0xffff93f5),
-        iconSize: size,
+        color: corBorracha,
+        iconSize: size+10,
         onPressed: () => changeEraser(true, size),
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,

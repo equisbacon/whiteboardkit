@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:whiteboardkit/generated/colors.dart';
 import 'package:whiteboardkit/toolbox.dart';
 import 'package:whiteboardkit/whiteboard_controller.dart';
 
@@ -14,8 +15,12 @@ const HEIGHT_TO_SUBSTRACT = 80.0;
 class Whiteboard extends StatefulWidget {
   final WhiteboardController controller;
   final WhiteboardStyle style;
+  final Color cF;
+  final Color cF2;
+  final Color cL;
+  final Color cB;
 
-  Whiteboard({@required this.controller, this.style = const WhiteboardStyle()});
+  Whiteboard({@required this.controller, this.style = const WhiteboardStyle(), this.cF, this.cF2, this.cB, this.cL});
 
   @override
   WhiteboardState createState() => WhiteboardState();
@@ -40,6 +45,10 @@ class WhiteboardState extends State<Whiteboard> {
   void initState() {
     super.initState();
 
+    corFundo = widget.cF;
+    corFundo2 = widget.cF2;
+    corLapis = widget.cL;
+    corBorracha = widget.cB;
     showToolBox = widget.controller.toolbox;
     toolboxOffset = showToolBox ? HEIGHT_TO_SUBSTRACT : 0;
 
@@ -102,9 +111,6 @@ class WhiteboardState extends State<Whiteboard> {
                   width: boardSize.width,
                   height: boardSize.height,
                   alignment: FractionalOffset.center,
-                  decoration: BoxDecoration(
-                    border: widget.style.border,
-                  ),
                   child: GestureDetector(
                     onPanUpdate: (DragUpdateDetails details) {
                       if(widget.controller.readonly) return;
@@ -131,7 +137,7 @@ class WhiteboardState extends State<Whiteboard> {
                             foregroundPainter: new SuperPainter(draw),
                             size: Size.infinite,
                             child: Container(
-                              color: Colors.white,
+                              color: corFundo,
                             ),
                           );
                         }),

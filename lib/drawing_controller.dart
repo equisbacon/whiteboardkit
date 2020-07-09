@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:whiteboardkit/generated/colors.dart';
 import 'package:whiteboardkit/whiteboardkit.dart';
 import 'draw_chunker.dart';
 import 'toolbox_options.dart';
@@ -14,7 +15,7 @@ class DrawingController extends WhiteboardController {
   DateTime firstPointTime;
 
   double brushSize = 3.0;
-  Color brushColor = Colors.black;
+  Color brushColor = corLapis;
   bool erase = false;
   double eraserSize = 8.0;
 
