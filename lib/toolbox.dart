@@ -61,10 +61,6 @@ class _ToolBoxState extends State<ToolBox> {
     var row = <Widget>[];
 
     switch (selected) {
-      case ToolBoxSelected.erase:
-        row =
-            brushSizes.map((size) => _buildEraseToolSizeButton(size)).toList();
-        break;
       case ToolBoxSelected.size:
         row =
             brushSizes.map((size) => _buildBrushToolSizeButton(size)).toList();
@@ -143,14 +139,6 @@ class _ToolBoxState extends State<ToolBox> {
                     ),
                     _buildToolButton(Icon(Icons.color_lens),
                         select: ToolBoxSelected.color, color: brushColor),
-                    _buildToolButton(
-                      Icon(
-                        FontAwesomeIcons.eraser,
-                        color: corBorracha,
-                        size: 26.0,
-                      ),
-                      select: ToolBoxSelected.erase,
-                    ),
                   ],
                 ),
                 decoration: BoxDecoration(
@@ -268,32 +256,7 @@ class _ToolBoxState extends State<ToolBox> {
     );
   }
 
-  Widget _buildEraseToolSizeButton(double size) {
-    var first = brushSizes.indexOf(size) == 0;
-    var last = brushSizes.indexOf(size) == brushSizes.length - 1;
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(color: Colors.black12, width: 2),
-          bottom: BorderSide(color: Colors.black12, width: 2),
-          right: BorderSide(color: Colors.black12, width: first ? 2 : 1),
-          left: BorderSide(color: Colors.black12, width: last ? 2 : 1),
-        ),
-        color: size == eraserSize && erase ? Colors.grey[300] : corFundo2,
-      ),
-      height: 60,
-      width: 60,
-      child: IconButton(
-        icon: Icon(FontAwesomeIcons.eraser),
-        color: corBorracha,
-        iconSize: size+10,
-        onPressed: () => changeEraser(true, size),
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-      ),
-    );
-  }
-
+ 
   void show(ToolBoxSelected selected) {
     setState(() {
       this.selected = selected;
